@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Http\Request;
@@ -28,4 +29,8 @@ Route::prefix("/products")->middleware('auth:sanctum')->group(function() {
 
 Route::prefix("/transactions")->middleware('auth:sanctum')->group(function() {
     Route::post("/", [TransactionController::class, "createTransaction"]);
+});
+
+Route::prefix("/merchant")->middleware('auth:sanctum')->group(function() {
+    Route::get("/customers", [MerchantController::class, "GetCustomers"]);
 });
