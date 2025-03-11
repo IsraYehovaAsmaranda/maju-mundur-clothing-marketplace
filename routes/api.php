@@ -24,20 +24,20 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix("/products")->group(function () {
         Route::get("/", [ProductController::class, "index"]);
         Route::get("/{product_id}", [ProductController::class, "show"]);
-        Route::post("/", [ProductController::class, "store"]);
-        Route::put("/{product_id}", [ProductController::class, "update"]);
-        Route::delete("/{product_id}", [ProductController::class, "destroy"]);
+        Route::post("/", [ProductController::class, "store"])->middleware("can:create product");
+        Route::put("/{product_id}", [ProductController::class, "update"])->middleware("can:update product");
+        Route::delete("/{product_id}", [ProductController::class, "destroy"])->middleware("can:delete product");
     });
 
     Route::prefix("/transactions")->group(function () {
-        Route::post("/", [TransactionController::class, "createTransaction"]);
+        Route::post("/", [TransactionController::class, "createTransaction"])->middleware("can:buy product");
     });
 
     Route::prefix("/merchant")->group(function () {
-        Route::get("/customers", [MerchantController::class, "GetCustomers"]);
+        Route::get("/customers", [MerchantController::class, "GetCustomers"])->middleware("can:get customer report");
     });
     Route::prefix("/rewards")->group(function () {
         Route::get("/", [PointRewardController::class, "index"]);
-        Route::post("/redeem", [PointRewardController::class, "redeem"]);
+        Route::post("/redeem", [PointRewardController::class, "redeem"])->middleware("can:redeem points");
     });
 });

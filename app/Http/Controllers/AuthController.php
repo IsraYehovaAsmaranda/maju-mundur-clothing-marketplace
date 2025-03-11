@@ -31,6 +31,8 @@ class AuthController extends Controller
             "points" => 0
         ]);
 
+        $user->assignRole("customer");
+
         return CommonResponse::success($user, "Registered as customer successfully");
     }
     public function registerMerchant(Request $request)
@@ -53,6 +55,8 @@ class AuthController extends Controller
             "address" => $request->address,
             "points" => 0
         ]);
+
+        $user->assignRole('merchant');
 
         return CommonResponse::success($user, "Registered as merchant successfully");
     }

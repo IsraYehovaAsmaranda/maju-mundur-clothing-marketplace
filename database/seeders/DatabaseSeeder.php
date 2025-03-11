@@ -14,12 +14,8 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            PointRewardSeeder::class
-        ]);
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            PointRewardSeeder::class,
+            RolePermissionSeeder::class
         ]);
     }
 }
