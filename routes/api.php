@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,9 +18,9 @@ Route::controller(AuthController::class)->prefix("/auth")->group(function() {
 });
 
 Route::prefix("/products")->middleware('auth:sanctum')->group(function() {
-    Route::get("/", function() {
-        return response()->json([
-            "message" => "Welcome to the product API!"
-        ]);
-    });
+    Route::get("/", [ProductController::class,"index"]);
+    Route::get("/{product_id}", [ProductController::class, "show"]);
+    Route::post("/", [ProductController::class, "store"]);
+    Route::put("/{product_id}", [ProductController::class, "update"]);
+    Route::delete("/{product_id}", [ProductController::class, "destroy"]);
 });
