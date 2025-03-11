@@ -24,7 +24,8 @@ class User extends Authenticatable
         'email',
         'password',
         'phone',
-        'address'
+        'address',
+        'points'
     ];
 
     /**
@@ -53,5 +54,8 @@ class User extends Authenticatable
     public function products(): HasMany
     {
         return $this->hasMany(Product::class, 'merchant_id', 'id');
+    }
+    public function transactions(): HasMany {
+        return $this->hasMany(Transaction::class, 'customer_id', 'id');
     }
 }

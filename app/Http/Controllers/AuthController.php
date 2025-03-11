@@ -22,7 +22,16 @@ class AuthController extends Controller
             "address" => "required"
         ]);
 
+        $user = User::create([
+            "email" => $request->email,
+            "password" => bcrypt($request->password),
+            "name" => $request->name,
+            "phone" => $request->phone,
+            "address" => $request->address,
+            "points" => 0
+        ]);
 
+        return CommonResponse::success($user, "Registered as customer successfully");
     }
     public function registerMerchant(Request $request)
     {
@@ -42,9 +51,10 @@ class AuthController extends Controller
             "name" => $request->name,
             "phone" => $request->phone,
             "address" => $request->address,
+            "points" => 0
         ]);
 
-        return CommonResponse::success($user);
+        return CommonResponse::success($user, "Registered as merchant successfully");
     }
     public function loginCustomer(Request $request)
     {
